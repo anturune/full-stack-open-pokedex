@@ -42,7 +42,7 @@ jobs:
       - uses: actions/checkout@v2 #Checkout uudelleen, ettei tule virhettä workflowin ajossa-->ei pysty muuten lisäämään tag:a
       - name: Bump version and push tag
         if: ${{ github.event_name == 'push' }} #tällä varmistetaan, että vain main branch muutokset luovat uuden version
-				  uses: anothrNick/github-tag-action@1.33.0 #Open source versioning action
+				uses: anothrNick/github-tag-action@1.33.0 #Open source versioning action
 				  env:
 					GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch #defaulttina minor ja tässä halutaan muuttaa defaultiksi patch
