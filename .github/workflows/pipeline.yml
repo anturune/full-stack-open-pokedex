@@ -31,7 +31,7 @@ jobs:
           start: npm run start-prod
           wait-on: http://localhost:5000
       - name: heroku deployment
-        if: ${{ github.event_name == 'push' }} #Pull request/mergeä varten, jotta ajaa kaikki stepit vain pushatessa-ei enää mergetettäessä
+        if: ${{ github.event_name == 'push' }} #Pull request/mergeä varten, jotta ajaa kaikki stepit vain pull requestia luotaessa-ei enää mergetettäessä
         uses: akhileshns/heroku-deploy@v3.12.12 #Valmis API heroku deploymentiin Githupissa
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
@@ -39,3 +39,10 @@ jobs:
           heroku_email: asturune@hotmail.com
           healthcheck: https://pokemonnikortit.herokuapp.com/health #ks. endpoint app.js filestä
           rollbackonhealthcheckfailed: true #tekee rollbackin, jos deployment feilaa Herokuun
+      - uses: actions/checkout@v2 #Checkout uudelleen, ettei tule virhettä workflowin ajossa-->ei pysty muuten lisäämään tag:a
+      - name: Bump version and push tag
+        if: ${{ github.event_name == 'push' }} #tällä varmistetaan, että vain main branch muutokset luovat uuden version
+				  uses: anothrNick/github-tag-action@1.33.0 #Open source versioning action
+				  env:
+					GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch #defaulttina minor ja tässä halutaan muuttaa defaultiksi patch
