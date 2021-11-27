@@ -35,10 +35,12 @@ jobs:
           heroku_email: asturune@hotmail.com
           healthcheck: https://pokemonnikortit.herokuapp.com/health #ks. endpoint app.js filestä muutoksia
           rollbackonhealthcheckfailed: true #tekee rollbackin, jos deployment feilaa Herokuunss
-      - uses: actions/checkout@v2 #Checkout uudelleen, ettei tule virhettä workflowin ajossa-->ei pysty muuten lisäämään tag:a
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
       - name: Bump version and push tag
-        if: ${{ github.event_name == 'push' }} #tällä varmistetaan, että vain main branch muutokset luovat uuden version
-				uses: anothrNick/github-tag-action@1.36.0 #Open source versioning action
-				env:
-					GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEFAULT_BUMP: "patch" #defaulttina minor ja tässä halutaan muuttaa defaultiksi patch
+        uses: anothrNick/github-tag-action@1.36.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          DEFAULT_BUMP: "patch"
