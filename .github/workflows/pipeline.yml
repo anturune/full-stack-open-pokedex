@@ -31,7 +31,7 @@ jobs:
           start: npm run start-prod
           wait-on: http://localhost:5000
       - name: heroku deployment
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name == 'push' || !contains(github.event.commits[0].message,'#skip')}}
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
@@ -41,7 +41,7 @@ jobs:
           rollbackonhealthcheckfailed: true #tekee rollbackin, jos deployment feilaa Herokuunss
       - uses: actions/checkout@v2 #Checkout uudelleen, ettei tule virhettä workflowin ajossa-->ei pysty muuten lisäämään tag:a
       - name: Bump version and push tag
-        if: ${{ github.event_name == 'push' }} #tällä varmistetaan, että vain main branch muutokset luovat uuden version
+        if: ${{ github.event_name == 'push' || !contains(github.event.commits[0].message,'#skip')}} #tällä varmistetaan, että vain main branch muutokset luovat uuden version
         uses: anothrNick/github-tag-action@1.36.0 #Open source versioning action
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
