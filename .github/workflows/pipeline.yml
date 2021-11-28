@@ -21,7 +21,7 @@ jobs:
       - name: lint
         run: npm run eslint
       - name: build
-        run: npm run build
+        run: npm run bui
       - name: test
         run: npm run test
       - name: e2e tests
@@ -51,7 +51,7 @@ jobs:
         uses: 8398a7/action-slack@v3 #slack sovelluksen käyttöön kehitetty
         with:
           status: ${{ job.status }}
-          fields: repo,message,commit,author,took,action # selectable (default: repo,message)
+          fields: repo,message,commit,author,took,action,workflow # selectable (default: repo,message)
           #fields: repo,message,commit,author,action,eventName,ref,workflow,job,took,pullRequest # selectable (default: repo,message)
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
