@@ -1,12 +1,13 @@
 name: 11.20 Periodic health check!
 
-#on:
-  #push:
-    #branches:
-      #- master
 on:
-  schedule:
-    - cron: '* * * * *' #runs every minute and every day
+  push:
+    branches:
+      - master
+#ajastettu testi kommentoitu pois ettei syö ilmaisia minuutteja Herokusta
+#on:
+  #schedule:
+    #- cron: '* * * * *' #runs every minute and every day
     #- cron: '20/15 * * * *' #20/15 * * * * runs every 15 minutes starting from minute 20 through 59 (minutes 20, 35, and 50).
 
 
