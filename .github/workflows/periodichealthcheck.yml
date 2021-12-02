@@ -16,7 +16,7 @@ jobs:
         uses: jtalk/url-health-check-action@v2
         with:
           # Check the following URLs one by one sequentially
-          url: https://atu-ci-anecdotes.herokuapp.com/ | https://atu-ci-anecdotes.herokuapp.com/healthcheck
+          url: https://pokemonnikortit.herokuapp.com/
           # Follow redirects, or just report success on 3xx status codes
           follow-redirect: no # Optional, defaults to "no"
           # Fail this action after this many failed attempts
