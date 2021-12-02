@@ -1,13 +1,15 @@
 name: 11.20 Periodic health check!
 
+#on:
+  #push:
+    #branches:
+      #- master
 on:
-  push:
-    branches:
-      - master
-#pull_request:
-    #branches: [master]
-    #types: [opened, synchronize]
-    
+  schedule:
+    - cron: '* * * * *' #runs every minute and every day
+    #- cron: '20/15 * * * *' #20/15 * * * * runs every 15 minutes starting from minute 20 through 59 (minutes 20, 35, and 50).
+
+
 jobs:
   simple_periodic_healthcheck:
     runs-on: ubuntu-18.04
@@ -16,9 +18,9 @@ jobs:
         uses: jtalk/url-health-check-action@v2
         with:
           # Check the following URLs one by one sequentially
-          #url: https://pokemonnikortit.herokuapp.com/
+          url: https://pokemonnikortit.herokuapp.com/
           #For testing failure
-          url: https://pokemonnikorti.herokuapp.com/
+          #url: https://pokemonnikorti.herokuapp.com/
           # Follow redirects, or just report success on 3xx status codes
           #follow-redirect: no # Optional, defaults to "no"
           # Fail this action after this many failed attempts
